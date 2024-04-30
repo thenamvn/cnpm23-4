@@ -1,7 +1,6 @@
 import ita
 
 def count_neighbors(data, i, j):
-    """Đếm số lượng hàng xóm sống của một ô tại vị trí (i, j)."""
     neighbors = 0
     for x in range(max(0, i-1), min(len(data), i+2)):
         for y in range(max(0, j-1), min(len(data[0]), j+2)):
@@ -10,7 +9,6 @@ def count_neighbors(data, i, j):
     return neighbors
 
 def lifegame_rule(cur, neighbor):
-    """Áp dụng luật của Game of Life."""
     if cur == 1:
         if neighbor < 2 or neighbor > 3:
             return 0
@@ -22,8 +20,7 @@ def lifegame_rule(cur, neighbor):
         else:
             return 0
 
-def lifegame_step(data):
-    """Tính toán thế hệ tiếp theo từ thế hệ hiện tại."""
+def lifegame_step(data): # tính toán một thế hệ của Game of Life
     new_data = ita.array.make2d(len(data), len(data[0]))
     for i in range(len(data)):
         for j in range(len(data[0])):
@@ -31,15 +28,13 @@ def lifegame_step(data):
             new_data[i][j] = lifegame_rule(data[i][j], neighbors)
     return new_data
 
-def lifegame(data, steps):
-    """Tính toán các thế hệ của Game of Life và trả về một mảng 1D chứa các trạng thái."""
+def lifegame(data, steps): # tính toán các thế hệ của Game of Life và trả về một mảng 1D chứa các trạng thái
     results = ita.array.make1d(steps)
     results[0] = data
     for i in range(1, steps):
         results[i] = lifegame_step(results[i-1])
     return results
 def draw_circle(r, center_y, center_x, color, image):
-    # draw a circle with (center_x, center_y) as the center with "color" on the "image"
     for i in range(0, len(image)):
         for j in range(0, len(image[0])):
             if (distance(i, j, center_y, center_x)) < r:
@@ -51,8 +46,8 @@ def distance(x1, y1, x2, y2):
 def draw_game(state, image):
     for i in range(len(state)):
         for j in range(len(state[0])):
-            if state[i][j] == 1:  # if cell is alive
-                draw_circle(0.5, i, j, [1, 1, 0], image)  # draw a yellow circle
+            if state[i][j] == 1:  # sống
+                draw_circle(0.5, i, j, [1, 1, 0], image)
 
 # animation minh hoạ game of life với trạng thái khởi tạo là acorn
 ani = lifegame(ita.lifegame_acorn(), 10)
