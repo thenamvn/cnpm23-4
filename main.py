@@ -49,13 +49,13 @@ def draw_game(state, image):
             if state[i][j] == 1:  # sống
                 draw_circle(0.5, i, j, [1, 1, 0], image)
 
-# animation minh hoạ game of life với trạng thái khởi tạo là acorn
-ani = lifegame(ita.lifegame_acorn(), 10)
+# animation
+ani = lifegame(ita.lifegame_glider(), 10)
 ita.plot.animation_show(ani)
 
 
 
-# vẽ ảnh minh hoạ game of life với trạng thái khởi tạo là acorn
+# draw
 state = ita.lifegame_acorn()
 image = ita.array.make3d(len(state), len(state[0]), 3)
 draw_game(state, image)
